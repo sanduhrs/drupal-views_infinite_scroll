@@ -23,6 +23,7 @@ class views_plugin_pager_infinite_scroll extends views_plugin_pager_full {
     $style_plugin = $this->view->display_handler->default_display->options['style_plugin']; 
     $content_selector = '';
     $items_selector = '';
+    $img_path = drupal_get_path('module', 'views_infinite_scroll') . '/images/ajax-loader.gif';
     
     switch($style_plugin){
       case 'default':
@@ -43,6 +44,6 @@ class views_plugin_pager_infinite_scroll extends views_plugin_pager_full {
         break;
     }
     $pager_theme = views_theme_functions('views_infinite_scroll_pager', $this->view, $this->display);
-    return theme($pager_theme, $input, $this->options['items_per_page'], $content_selector, $items_selector, $this->options['id']);
+    return theme($pager_theme, $input, $this->options['items_per_page'], $content_selector, $items_selector, $img_path, $this->options['id']);
   }
 }

@@ -4,7 +4,7 @@
  * @file
  * Theme infinite scroll page
  */
-function theme_views_infinite_scroll_pager($tags = array(), $limit = 10, $content_selector = 'div.view-content', $items_selector = 'div.view-content .views-row', $element = 0, $parameters = array(), $quantity = 9) {
+function theme_views_infinite_scroll_pager($tags = array(), $limit = 10, $content_selector = 'div.view-content', $items_selector = 'div.view-content .views-row', $img_path, $element = 0, $parameters = array(), $quantity = 9) {
   $PAGER_CLASS = 'pager';
   global $pager_page_array, $pager_total;
 
@@ -40,8 +40,10 @@ function theme_views_infinite_scroll_pager($tags = array(), $limit = 10, $conten
         'next_selector' => 'li.pager-next a:first',    
         'content_selector' => $content_selector,        
         'items_selector' => $items_selector,        
+        'img_path' => $img_path,
       )
     );
+    drupal_add_css(drupal_get_path('module', 'views_infinite_scroll') . '/css/views_infinite_scroll.css');
     drupal_add_js($settings, 'setting' );
     drupal_add_js(drupal_get_path('module', 'views_infinite_scroll') . '/js/jquery.autopager-1.0.0.js');
     drupal_add_js(drupal_get_path('module', 'views_infinite_scroll') . '/js/views_infinite_scroll.js');
