@@ -45,7 +45,16 @@ function theme_views_infinite_scroll_pager($tags = array(), $limit = 10, $conten
     );
     drupal_add_css(drupal_get_path('module', 'views_infinite_scroll') . '/css/views_infinite_scroll.css');
     drupal_add_js($settings, 'setting' );
-    drupal_add_js(drupal_get_path('module', 'views_infinite_scroll') . '/js/jquery.autopager-1.0.0.js');
+    $autopager_path = '';
+    if (module_exists('libraries')) {
+      $autopager_path = libraries_get_path('autopager');
+    }
+    else {
+      $autopager_path = drupal_get_path('module', 'views_infinite_scroll') . '/js';
+    }
+
+
+    drupal_add_js($autopager_path . '/jquery.autopager-1.0.0.js');
     drupal_add_js(drupal_get_path('module', 'views_infinite_scroll') . '/js/views_infinite_scroll.js');
     
     return theme('item_list', $items, NULL, 'ul', array('class' => $PAGER_CLASS));
