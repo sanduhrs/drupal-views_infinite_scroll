@@ -1,32 +1,47 @@
 Drupal.behaviors.views_infinite_scroll = function() {
   // Make sure that autopager pluginis loaded
   if($.autopager) {
-    // Make sure that views ajax is disabled
-    if(!(Drupal.Views && Drupal.Views.Ajax)) {
-      $(Drupal.settings.views_infinite_scroll.pager_selector).hide();
-      var content_selector = Drupal.settings.views_infinite_scroll.content_selector;
-      var items_selector = Drupal.settings.views_infinite_scroll.items_selector;
-      var next_selector = Drupal.settings.views_infinite_scroll.next_selector;
-      var img_path = Drupal.settings.views_infinite_scroll.img_path;
-      var img = '<div id="views_infinite_scroll-ajax-loader"><img src="' + img_path + '" alt="loading..."><div>';
-      $.autopager({
-        appendTo: content_selector,
-        content: items_selector,
-        link: next_selector,
-        page: 0,
-        start: function() {
-          $(content_selector).append(img);            
-        },
-        load: function() {
-          $('div#views_infinite_scroll-ajax-loader').remove(); 
-        }    
-      });
+    // There should not be multiple Infinite Scroll Views on the same page
+    if(Drupal.settings.views_infinite_scroll.length == 1) { 
+      var settings = Drupal.settings.views_infinite_scroll[0];
+      var use_ajax = false;
+      // Make sure that views ajax is disabled
+      if(Drupal.settings.views && Drupal.settings.views.ajaxViews) {
+        $.each(Drupal.settings.views.ajaxViews, function(key, value) {
+          if((value.view_name == settings.view_name) && (value.view_display_id == settings.display)) {
+            use_ajax = true;
+          }
+        });
+      }
+      if(!use_ajax) {
+        var content_selector = 'div.view-id-' + settings.view_name + '.view-display-id-' + settings.display + ' ' + settings.content_selector;
+        var items_selector   = content_selector + ' ' + settings.items_selector;
+        var next_selector    = settings.next_selector;
+        var img_path         = settings.img_path;
+        var img              = '<div id="views_infinite_scroll-ajax-loader"><img src="' + img_path + '" alt="loading..."/></div>';
+        $(settings.pager_selector).hide();
+        $.autopager({
+          appendTo: content_selector,
+          content: items_selector,
+          link: next_selector,
+          page: 0,
+          start: function() {
+            $(content_selector).append(img);            
+          },
+          load: function() {
+            $('div#views_infinite_scroll-ajax-loader').remove(); 
+          }    
+        });
+      }
+      else {  
+        alert(Drupal.t('Views infinite scroll pager is not compatible with Ajax Views. Please disable "Use Ajax" option.'));
+      }
     }
-    else {
-      alert(Drupal.t('Views infinite scroll pager is not compatible with Ajax Views. please disable "Use Ajax" option'));
+    else if(Drupal.settings.views_infinite_scroll.length > 1) {
+      alert(Drupal.t('Views Infinite Scroll module can\'t handle more than one infinite view in the same page.'));
     }
   }
   else {
-    alert(Drupal.t('Autopager jquery plugin in not loaded'));
+    alert(Drupal.t('Autopager jquery plugin in not loaded.'));
   }
 };  
