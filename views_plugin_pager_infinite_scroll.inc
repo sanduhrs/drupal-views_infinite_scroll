@@ -27,20 +27,20 @@ class views_plugin_pager_infinite_scroll extends views_plugin_pager_full {
     
     switch($style_plugin){
       case 'default':
-        $content_selector = 'div.view-content';
-        $items_selector = 'div.view-content .views-row';
+        $content_selector = '.view-id-' . $this->view->name . '.view-display-id-' . $this->view->current_display . ' div.view-content';
+        $items_selector = '.view-id-' . $this->view->name . '.view-display-id-' . $this->view->current_display . ' div.view-content .views-row';
         break;
       case 'grid':
-        $content_selector = 'div.view-content tbody';
-        $items_selector = 'div.view-content tbody tr';
+        $content_selector = '.view-id-' . $this->view->name . '.view-display-id-' . $this->view->current_display . ' div.view-content tbody';
+        $items_selector = '.view-id-' . $this->view->name . '.view-display-id-' . $this->view->current_display . ' div.view-content tbody tr';
         break;
       case 'list':
-        $content_selector = 'div.view-content .item-list > *';
-        $items_selector = 'div.view-content .views-row';
+        $content_selector = '.view-id-' . $this->view->name . '.view-display-id-' . $this->view->current_display . ' div.view-content .item-list > *';
+        $items_selector = '.view-id-' . $this->view->name . '.view-display-id-' . $this->view->current_display . ' div.view-content .views-row';
         break;
       case 'table':
-        $content_selector = 'div.view-content tbody';
-        $items_selector = 'div.view-content tbody tr';
+        $content_selector = '.view-id-' . $this->view->name . '.view-display-id-' . $this->view->current_display . ' div.view-content tbody';
+        $items_selector = '.view-id-' . $this->view->name . '.view-display-id-' . $this->view->current_display . ' div.view-content tbody tr';
         break;
     }
     $pager_theme = views_theme_functions('views_infinite_scroll_pager', $this->view, $this->display);
