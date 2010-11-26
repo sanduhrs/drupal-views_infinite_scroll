@@ -2,7 +2,7 @@ Drupal.behaviors.views_infinite_scroll = function() {
   // Make sure that autopager pluginis loaded
   if($.autopager) {
     // Make sure that views ajax is disabled
-    if(!Drupal.Views) {
+    if(!(Drupal.Views && Drupal.Views.Ajax)) {
       $(Drupal.settings.views_infinite_scroll.pager_selector).hide();
       var content_selector = Drupal.settings.views_infinite_scroll.content_selector;
       var items_selector = Drupal.settings.views_infinite_scroll.items_selector;
