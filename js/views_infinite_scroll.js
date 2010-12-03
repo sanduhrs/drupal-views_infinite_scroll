@@ -19,6 +19,7 @@ Drupal.behaviors.views_infinite_scroll = function() {
         var next_selector    = settings.next_selector;
         var img_path         = settings.img_path;
         var img              = '<div id="views_infinite_scroll-ajax-loader"><img src="' + img_path + '" alt="loading..."/></div>';
+        var img_location     = 'div.view-id-' + settings.view_name + '.view-display-id-' + settings.display + ' div.view-content'; 
         $(settings.pager_selector).hide();
         $.autopager({
           appendTo: content_selector,
@@ -26,7 +27,7 @@ Drupal.behaviors.views_infinite_scroll = function() {
           link: next_selector,
           page: 0,
           start: function() {
-            $(content_selector).append(img);            
+            $(img_location).after(img);
           },
           load: function() {
             $('div#views_infinite_scroll-ajax-loader').remove(); 
