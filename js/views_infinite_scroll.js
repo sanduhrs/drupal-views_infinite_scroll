@@ -1,3 +1,4 @@
+// $Id:
 Drupal.behaviors.views_infinite_scroll = function() {
   // Make sure that autopager pluginis loaded
   if($.autopager) {
