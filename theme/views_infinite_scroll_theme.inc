@@ -17,12 +17,21 @@ function theme_views_infinite_scroll_pager($tags = array(), $limit = 10, $view_n
   $pager_max = $pager_total[$element];
   // End of marker calculations.
 
+  $li_previous = theme('pager_previous', (isset($tags[1]) ? $tags[1] : t('‹‹')), $limit, $element, 1, $parameters);
+  if (empty($li_previous)) {
+    $li_previous = "&nbsp;";
+  }
+
   $li_next = theme('pager_next', (isset($tags[3]) ? $tags[3] : t('››')), $limit, $element, 1, $parameters);
   if (empty($li_next)) {
     $li_next = "&nbsp;";
   }
 
   if ($pager_total[$element] > 1) {
+    $items[] = array(
+      'class' => 'pager-previous',
+      'data' => $li_previous,
+    );
 
     $items[] = array(
       'class' => 'pager-current',
