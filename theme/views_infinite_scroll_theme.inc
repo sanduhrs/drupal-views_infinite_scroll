@@ -57,16 +57,18 @@ function theme_views_infinite_scroll_pager($tags = array(), $limit = 10, $view_n
     );
     drupal_add_css(drupal_get_path('module', 'views_infinite_scroll') . '/css/views_infinite_scroll.css');
     drupal_add_js($settings, 'setting' );
-    $autopager_path = '';
-    if (module_exists('libraries')) {
-      $autopager_path = libraries_get_path('autopager');
+    
+    // Add Autopager jQuery plugin
+    // If libraries module is installed, check for the plugin in libraries dir.
+    if (module_exists('libraries') && file_exists(libraries_get_path('autopager') .'/jquery.autopager-1.0.0.js')) {
+      drupal_add_js(libraries_get_path('autopager') .'/jquery.autopager-1.0.0.js');
     }
+    // else, load it from views_infinite_scroll/js dir.
     else {
-      $autopager_path = drupal_get_path('module', 'views_infinite_scroll') . '/js';
+      $autopager_module_path = drupal_get_path('module', 'views_infinite_scroll') . '/js/jquery.autopager-1.0.0.js';
+      drupal_add_js($autopager_module_path);
     }
 
-
-    drupal_add_js($autopager_path . '/jquery.autopager-1.0.0.js');
     drupal_add_js(drupal_get_path('module', 'views_infinite_scroll') . '/js/views_infinite_scroll.js');
     
     return theme('item_list', $items, NULL, 'ul', array('class' => $PAGER_CLASS));
