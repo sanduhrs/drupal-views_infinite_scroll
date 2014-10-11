@@ -4,4 +4,17 @@
  * Page theme for views infinite scroll.
  */
 #}
-<a>Load More</a>
+
+<div class="infinite-scroll-wrapper">
+
+  <div class="loading-element-wrapper">
+  </div>
+
+  {% if options.vis.manual_load %}
+    <a class="button load-more-button">{{ options.vis.manual_load_text }}</a>
+  {% endif %}
+
+  <div class="hidden">
+    {{ items }}
+  </div>
+</div>
