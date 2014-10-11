@@ -9,9 +9,12 @@ namespace Drupal\views_infinite_scroll\Plugin\views\pager;
 
 use Drupal\views\Plugin\views\pager\SqlBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\Html;
 
 /**
  * Plugin to handle infinite scrolling.
+ *
+ * @ingroup views_pager_plugins
  *
  * @ViewsPager(
  *  id = "infinite_scroll",
@@ -84,13 +87,21 @@ class InfiniteScroll extends SqlBase {
    * {@inheritdoc}
    */
   public function render($input) {
+    $tags = array(
+      1 => $this->options['tags']['previous'],
+      3 => $this->options['tags']['next'],
+    );
+
     return array(
       '#theme' => $this->themeFunctions(),
       '#options' => $this->options,
       '#attached' => array(
         'js' => array($this->buildJsSettings()),
-        'library' => array('views_infinite_scroll/infinite-scroll'),
+        'library' => array('views_infinite_scroll/views-infinite-scroll'),
       ),
+      '#tags' => $tags,
+      '#element' => $this->options['id'],
+      '#parameters' => $input,
     );
   }
 
@@ -101,12 +112,17 @@ class InfiniteScroll extends SqlBase {
    *   An array of variables to be sent to the browser.
    */
   protected function buildJsSettings() {
+    // Compiled from template_preprocess_views_view().
+    $class = '.view-' . Html::cleanCssIdentifier($this->view->storage->id) . '.view-id-' . $this->view->storage->id . '.view-display-id-' . $this->view->current_display;
     return array(
       'type' => 'setting',
       'data' => array(
         'views_infinite_scroll' => array(
-          $this->view->dom_id => array(
+          // An array keyed by the view's unique selector.
+          '.view-dom-id-' . $this->view->dom_id => array(
             'options' => $this->options['vis'],
+            // A class which will represent this view on subsequent requests.
+            'view_class' => $class,
           ),
         ),
       ),
