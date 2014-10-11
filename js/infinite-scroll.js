@@ -7,7 +7,7 @@
 
           var $view = $(this);
           var $loading_wrapper = $view.find('.loading-element-wrapper');
-          var $loading_element = $('<div/>', {class : 'test'}).text(info.options.loading_text);
+          var $loading_element = $('<div/>', {class : 'loading-element'}).text(info.options.loading_text);
 
           $.autopager({
             link: [info.view_class, '.infinite-scroll-wrapper .item-list .pager-next a'].join(' '),
