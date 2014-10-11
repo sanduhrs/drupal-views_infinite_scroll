@@ -100,11 +100,11 @@ class InfiniteScroll extends SqlBase {
    * {@inheritdoc}
    */
   public function render($input) {
+    // Based on the mini pager style.
     $tags = array(
       1 => $this->options['tags']['previous'],
       3 => $this->options['tags']['next'],
     );
-
     return array(
       '#theme' => $this->themeFunctions(),
       '#options' => $this->options,
