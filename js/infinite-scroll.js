@@ -17,7 +17,7 @@
             load: autopager_load
           });
 
-          var $load_more_button = $view.find('.load-more-button').click(function() {
+          var $load_more_button = $view.find('.load-more-button').click(function () {
             $.autopager('load');
           });
 
