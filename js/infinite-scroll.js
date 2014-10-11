@@ -10,7 +10,7 @@
           var $loading_element = $('<div/>', {class : 'loading-element'}).text(info.options.loading_text);
 
           $.autopager({
-            link: [info.view_class, '.infinite-scroll-wrapper .item-list .pager-next a'].join(' '),
+            link: [info.view_class, '.infinite-scroll-wrapper .pager-next a'].join(' '),
             content: [info.view_class, '.view-content'].join(' '),
             autoLoad: !info.options.manual_load,
             start: autopager_start,
