@@ -1,0 +1,7 @@
+name: Views Infinite Scroll
+type: module
+description: A plugin which allows views to scroll infinitely.
+package: Views
+core: 8.x
+dependencies:
+ - views
