@@ -90,7 +90,10 @@ class InfiniteScroll extends SqlBase {
    * {@inheritdoc}
    */
   public function summaryTitle() {
-    return $this->t('settings');
+    if ($this->options['vis']['manual_load']) {
+      return format_plural($this->options['items_per_page'], 'Click to load, @count item', 'Click to load, @count items', array('@count' => $this->options['items_per_page']));
+    }
+    return format_plural($this->options['items_per_page'], 'Infinite scroll, @count item', 'Infinite scroll, @count items', array('@count' => $this->options['items_per_page']));
   }
 
   /**
