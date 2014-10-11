@@ -1,0 +1,7 @@
+infinite-scroll:
+  version: VERSION
+  js:
+    js/infinite-scroll.js : {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
