@@ -39,6 +39,9 @@ class InfiniteScroll extends SqlBase {
         'manual_load_text' => array(
           'default' => $this->t('Load More'),
         ),
+        'loading_text' => array(
+          'default' => $this->t('Loading...'),
+        ),
       ),
     );
     return $options;
@@ -58,13 +61,13 @@ class InfiniteScroll extends SqlBase {
       '#weight' => -100,
       'manual_load' => array(
         '#type' => 'checkbox',
-        '#title' => $this->t('Load Manually'),
+        '#title' => $this->t('Click to Load'),
         '#description' => $this->t('Users must manually click a button to load more results.'),
         '#default_value' => $this->options['vis']['manual_load'],
       ),
       'manual_load_text' => array(
         '#type' => 'textfield',
-        '#title' => $this->t('Load More Text'),
+        '#title' => $this->t('Click to Load Button'),
         '#description' => $this->t('The text inside the manually load button.'),
         '#default_value' => $this->options['vis']['manual_load_text'],
         '#states' => array(
@@ -72,6 +75,12 @@ class InfiniteScroll extends SqlBase {
             ':input[name="pager_options[vis][manual_load]"]' => array('checked' => TRUE),
           ),
         ),
+      ),
+      'loading_text' => array(
+        '#type' => 'textfield',
+        '#title' => $this->t('Loading Text'),
+        '#description' => $this->t('The text displayed to the user when the next page is loading.'),
+        '#default_value' => $this->options['vis']['loading_text'],
       ),
     );
   }
