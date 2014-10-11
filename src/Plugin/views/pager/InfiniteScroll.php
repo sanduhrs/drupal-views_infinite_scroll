@@ -7,7 +7,8 @@
 
 namespace Drupal\views_infinite_scroll\Plugin\views\pager;
 
-use Drupal\views\Plugin\views\pager\SqlBase;
+use Drupal\views\Plugin\views\pager\SqlBase,
+    Drupal\Core\Form\FormStateInterface;
 
 /**
  * Plugin to handle infinite scrolling.
