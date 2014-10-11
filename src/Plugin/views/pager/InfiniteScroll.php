@@ -52,6 +52,7 @@ class InfiniteScroll extends SqlBase {
    */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
+    $form['tags']['#description'] = $this->t('While these links are not visible during infinite scrolling, they are used by search engines and browsers without JavaScript.');
     $form['vis'] = array(
       '#title' => $this->t('Infinite Scroll Options'),
       '#type' => 'details',
