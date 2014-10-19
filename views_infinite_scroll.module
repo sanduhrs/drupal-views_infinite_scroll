@@ -12,3 +12,11 @@ function views_infinite_scroll_preprocess_views_infinite_scroll_pager(&$vars) {
   // one.
   template_preprocess_views_mini_pager($vars);
 }
+
+/**
+ * Load the VIS library information.
+ */
+function views_infinite_scroll_autopager_library() {
+  $library_discovery = \Drupal::service('library.discovery');
+  return $library_discovery->getLibraryByName('views_infinite_scroll', 'jquery.autopager');
+}
