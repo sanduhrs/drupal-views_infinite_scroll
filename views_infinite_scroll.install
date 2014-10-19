@@ -1,0 +1,30 @@
+<?php
+/**
+ * @file
+ * Install file for VIS.
+ */
+
+use Drupal\Component\Utility\SafeMarkup;
+
+/**
+ * Implements hook_install().
+ */
+function views_infinite_scroll_install() {
+  // Provide some instructions on how to get the relevant libraries installed.
+  $drush_installation = PHP_SAPI == 'cli';
+  if ($drush_installation) {
+    $console_help = array();
+    $console_help[] = PHP_EOL;
+    $console_help[] = t('This module requires the jquery-autopager plugin.');
+    $console_help[] = PHP_EOL;
+    $console_help[] = t("Use \033[1;32mdrush dl-autopager\033[0m to download automatically or open the README.txt file for instructions.");
+    $console_help[] = PHP_EOL;
+    $console_help[] = PHP_EOL;
+    fwrite(STDOUT, implode($console_help));
+  }
+  else {
+    $library = views_infinite_scroll_autopager_library();
+    $message = t('This module requires the jquery-autopager plugin. Download it <a href="@url">here</a> and place it in the libraries/jquery.autopager folder.', array('@url' => $library['remote']));
+    drupal_set_message(SafeMarkup::set($message), 'warning');
+  }
+}
