@@ -8,7 +8,7 @@ views-infinite-scroll:
     - views_infinite_scroll/jquery.autopager
 
 jquery.autopager:
-  remote: https://github.com/Sam152/jquery-autopager-too
+  remote: https://raw.githubusercontent.com/Sam152/jquery-autopager-too/master/jquery.autopager.js
   license: MIT and GPL
   js:
     '/libraries/jquery.autopager/jquery.autopager.js' : {}
