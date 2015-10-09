@@ -8,15 +8,35 @@
  * Implements hook_preprocess_views_infinite_scroll_pager().
  */
 function views_infinite_scroll_preprocess_views_infinite_scroll_pager(&$vars) {
-  // @todo, find out if there is a better way to model our pager off the mini
-  // one.
-  template_preprocess_views_mini_pager($vars);
+  // The important parts we needed lifted wholesale from
+  // template_preprocess_views_mini_pager().
+  global $pager_page_array, $pager_total;
+  $element = $vars['element'];
+  $parameters = $vars['parameters'];
+  if ($pager_page_array[$element] < ($pager_total[$element] - 1)) {
+    $options = array(
+      'query' => pager_query_add_page($parameters, $element, $pager_page_array[$element] + 1),
+    );
+    $vars['items']['next']['href'] = \Drupal::url('<current>', [], $options);
+  }
+  $vars['#cache']['contexts'][] = 'url.query_args';
 }
 
 /**
- * Load the VIS library information.
+ * Implements hook_views_ajax_data_alter().
  */
-function views_infinite_scroll_autopager_library() {
-  $library_discovery = \Drupal::service('library.discovery');
-  return $library_discovery->getLibraryByName('views_infinite_scroll', 'jquery.autopager');
+function views_infinite_scroll_ajax_render_alter(array &$commands) {
+  // The magic behind the module. Instead of using a library, use the ajax
+  // commands sent to the client to append the view content instead of replacing
+  // it during an ajax refresh.
+  $views_replace_command = FALSE;
+  foreach ($commands as $delta => &$command) {
+    if ($command['command'] === 'viewsScrollTop') {
+      $views_replace_command = TRUE;
+      continue;
+    }
+    if ($views_replace_command) {
+      $command['method'] = 'infiniteScrollInsertView';
+    }
+  }
 }

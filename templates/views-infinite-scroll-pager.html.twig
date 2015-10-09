@@ -1,20 +1,14 @@
 {#
 /**
  * @file
- * Page theme for views infinite scroll.
+ * The views infinite scroll pager template.
  */
 #}
 
-<div class="infinite-scroll-wrapper">
-
-  <div class="loading-element-wrapper">
-  </div>
-
-  {% if options.vis.manual_load %}
-    <a class="button load-more-button">{{ options.vis.manual_load_text }}</a>
-  {% endif %}
-
-  <div class="original-pager">
-    {{ items }}
-  </div>
-</div>
+{% if items.next %}
+<ul class="js-pager__items pager">
+  <li class="pager__item">
+    <a class="button" href="{{ items.next.href }}" title="{{ 'Go to next page'|t }}" rel="next">{{ options.button_text }}</a>
+  </li>
+</ul>
+{% endif %}

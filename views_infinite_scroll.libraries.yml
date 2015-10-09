@@ -4,14 +4,3 @@ views-infinite-scroll:
     js/infinite-scroll.js : {}
   dependencies:
     - core/jquery
-    - core/jquery.once
-    - views_infinite_scroll/jquery.autopager
-
-jquery.autopager:
-  remote: https://raw.githubusercontent.com/Sam152/jquery-autopager-too/master/jquery.autopager.js
-  license: MIT and GPL
-  js:
-    '/libraries/jquery.autopager/jquery.autopager.js' : {}
-  version: VERSION
-  dependenices:
-   - jquery
