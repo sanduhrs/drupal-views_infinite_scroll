@@ -29,6 +29,9 @@ function views_infinite_scroll_ajax_render_alter(array &$commands) {
   // The magic behind the module. Instead of using a library, use the ajax
   // commands sent to the client to append the view content instead of replacing
   // it during an ajax refresh.
+  if (!isset($_POST['page'])) {
+    return;
+  }
   $views_replace_command = FALSE;
   foreach ($commands as $delta => &$command) {
     if ($command['command'] === 'viewsScrollTop') {
