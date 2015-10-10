@@ -33,6 +33,7 @@ function views_infinite_scroll_ajax_render_alter(array &$commands) {
   foreach ($commands as $delta => &$command) {
     if ($command['command'] === 'viewsScrollTop') {
       $views_replace_command = TRUE;
+      unset($commands[$delta]);
       continue;
     }
     if ($views_replace_command) {
