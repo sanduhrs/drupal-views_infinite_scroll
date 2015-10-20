@@ -29,9 +29,23 @@ function views_infinite_scroll_ajax_render_alter(array &$commands) {
   // The magic behind the module. Instead of using a library, use the ajax
   // commands sent to the client to append the view content instead of replacing
   // it during an ajax refresh.
-  if (!isset($_POST['page'])) {
+  if (!isset($_POST['page']) || !isset($_POST['view_name'])) {
     return;
   }
+
+  // ViewAjaxController strips all information out of the request object,
+  // and we do not have hook_views_ajax_data_alter. I hate this, but can't see
+  // another way to determine if the current AJAX pagination is from a VIS
+  // enabled view. Perhaps look at the string contents of the commands and check
+  // for pager markup? @todo
+  $view = \Drupal::service('entity.manager')->getStorage('view')->load($_POST['view_name'])->getExecutable();
+  $view->setDisplay($_POST['view_display_id']);
+  $pager = $view->getPager();
+
+  if ($pager->getPluginId() !== 'infinite_scroll') {
+    return;
+  }
+
   $views_replace_command = FALSE;
   foreach ($commands as $delta => &$command) {
     if ($command['command'] === 'viewsScrollTop') {
