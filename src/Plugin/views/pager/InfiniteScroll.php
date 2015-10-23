@@ -75,7 +75,6 @@ class InfiniteScroll extends SqlBase {
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
     $form['tags']['#access'] = FALSE;
-
     $options = $this->options['views_infinite_scroll'];
 
     $form['views_infinite_scroll'] = [
