@@ -28,7 +28,7 @@ class AjaxResponseSubscriber implements EventSubscriberInterface {
     foreach ($commands as $delta => &$command) {
       // Substitute the 'replace' method without our custom jQuery method which
       // will allow views content to be injected one after the other.
-      if ($command['method'] === 'replaceWith') {
+      if (isset($command['method']) && $command['method'] === 'replaceWith') {
         $command['method'] = 'infiniteScrollInsertView';
       }
       // Stop the view from scrolling to the top of the page.
