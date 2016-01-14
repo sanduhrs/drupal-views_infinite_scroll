@@ -5,6 +5,8 @@
  * Module file for views_infinite_scroll.
  */
 
+use Drupal\Core\Url;
+
 /**
  * Implements hook_preprocess_views_infinite_scroll_pager().
  */
@@ -18,7 +20,7 @@ function views_infinite_scroll_preprocess_views_infinite_scroll_pager(&$vars) {
     $options = array(
       'query' => pager_query_add_page($parameters, $element, $pager_page_array[$element] + 1),
     );
-    $vars['items']['next']['href'] = \Drupal::url('<current>', [], $options);
+    $vars['items']['next']['href'] = Url::fromRoute('<current>', [], $options);
   }
   $vars['#cache']['contexts'][] = 'url.query_args';
 }
