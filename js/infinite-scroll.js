@@ -1,10 +1,17 @@
 (function ($) {
   "use strict";
 
+  // Cached reference to $(window).
   var $window = $(window);
 
   // The threshold for how far to the bottom you should reach before reloading.
   var scroll_threshold = 200;
+
+  // The selector for the automatic pager.
+  var automatic_pager_selector = '.infinite-scroll-automatic-pager';
+
+  // The event and namespace that is bound to window for automatic scrolling.
+  var scroll_event = 'scroll.views_infinite_scroll';
 
   /**
    * Insert a views infinite scroll view into the document.
@@ -22,16 +29,25 @@
    */
   Drupal.behaviors.views_infinite_scroll_automatic = {
     attach : function(context, settings) {
-      $('.infinite-scroll-automatic-pager', context).once().each(function() {
+      $(automatic_pager_selector, context).once().each(function() {
         var $pager = $(this);
         $pager.addClass('visually-hidden');
-        $window.on('scroll.views_infinite_scroll', function() {
+        $window.on(scroll_event, function() {
           if (window.innerHeight + window.pageYOffset > $pager.offset().top - scroll_threshold) {
             $pager.find('[rel=next]').click();
-            $window.off('scroll.views_infinite_scroll');
+            $window.off(scroll_event);
           }
         });
       });
+    },
+    detach: function (context, settings, trigger) {
+      // In the case where the view is removed from the document, remove it's
+      // events. This is important in the case a view being refreshed for a reason
+      // other than a scroll. AJAX filters are a good example of the event needing
+      // to be destroyed earlier than above.
+      if ($(automatic_pager_selector, context).length != 0) {
+        $window.off(scroll_event);
+      }
     }
   };
 
