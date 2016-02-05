@@ -47,7 +47,6 @@ class InfiniteScroll extends SqlBase {
    */
   protected function defineOptions() {
     $options = parent::defineOptions();
-    unset($options['tags']);
     $options['views_infinite_scroll'] = [
       'contains' => [
         'button_text' => [
