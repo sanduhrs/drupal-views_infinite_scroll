@@ -10,9 +10,6 @@
   // The selector for the automatic pager.
   var automatic_pager_selector = '.infinite-scroll-automatic-pager';
 
-  // The selector for the automatic pager.
-  var content_wrapper_selector = '.views-infinite-scroll-content-wrapper';
-
   // The event and namespace that is bound to window for automatic scrolling.
   var scroll_event = 'scroll.views_infinite_scroll';
 
@@ -21,9 +18,9 @@
    */
   $.fn.infiniteScrollInsertView = function ($new_view) {
     var $existing_view = this;
-    var $existing_content = $existing_view.find(content_wrapper_selector).children();
+    var $existing_content = $existing_view.find('.view-content').children();
     $existing_view.css('height', $existing_view.height() + 'px');
-    $new_view.find(content_wrapper_selector).prepend($existing_content);
+    $new_view.find('.view-content').prepend($existing_content);
     $existing_view.replaceWith($new_view);
     $(document).trigger('infiniteScrollComplete', [$new_view, $existing_content]);
   };
