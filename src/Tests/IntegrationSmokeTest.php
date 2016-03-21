@@ -35,6 +35,7 @@ class IntegrationSmokeTest extends WebTestBase {
    * Test the views plugin.
    */
   public function testPlugin() {
+    // Create a view with the pager plugin enabled.
     $this->drupalPostForm('admin/structure/views/add', [
       'label' => 'Test Plugin',
       'id' => 'test_plugin',
@@ -53,6 +54,17 @@ class IntegrationSmokeTest extends WebTestBase {
     $this->assertLink('Infinite Scroll');
     $this->assertText('Automatic infinite scroll, 10 items');
     $this->drupalPostForm(NULL, [], 'Save');
+
+    // Open the permissions to view the page.
+    $this->clickLink('Permission');
+    $this->drupalPostForm(NULL, [
+      'access[type]' => 'none',
+    ], 'Apply');
+    $this->drupalPostForm(NULL, [], 'Save');
+
+    // Ensure the wrapper div appears on the page.
+    $this->drupalGet('test-plugin');
+    $this->assertRaw('views-infinite-scroll-content-wrapper');
   }
 
 }
