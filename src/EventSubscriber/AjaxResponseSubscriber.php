@@ -59,9 +59,8 @@ class AjaxResponseSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    $commands = $response->getCommands();
+    $commands = &$response->getCommands();
     $this->alterPaginationCommands($commands);
-    $response->setData($commands);
   }
 
   /**
