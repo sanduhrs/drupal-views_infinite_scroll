@@ -43,7 +43,7 @@ class IntegrationSmokeTest extends WebTestBase {
       'page[title]' => 'Test Plugin',
       'page[path]' => 'test-plugin',
     ], 'Save and edit');
-    $this->clickLink('Full');
+    $this->clickLink('Mini');
     $this->drupalPostForm(NULL, [
       'pager[type]' => 'infinite_scroll',
     ], 'Apply');
