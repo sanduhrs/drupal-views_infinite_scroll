@@ -35,7 +35,12 @@ function views_infinite_scroll_preprocess_views_view(&$vars) {
     $pager = $view->getPager();
     if ($pager && $pager instanceof InfiniteScroll) {
       $vars['rows']['#theme_wrappers'] = ['container'];
-      $vars['rows']['#attributes'] = ['class' => ['views-infinite-scroll-content-wrapper']];
+      $vars['rows']['#attributes'] = [
+        'class' => [
+          'views-infinite-scroll-content-wrapper',
+          'clearfix',
+        ],
+      ];
     }
   }
 }
