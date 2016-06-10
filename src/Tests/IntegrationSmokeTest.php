@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\views_infinite_scroll\Tests\IntegrationSmokeTest.
- */
-
 namespace Drupal\views_infinite_scroll\Tests;
 
 use Drupal\simpletest\WebTestBase;

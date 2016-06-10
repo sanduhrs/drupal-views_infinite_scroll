@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\views_infinite_scroll\Plugin\views\pager\InfiniteScroll.
- */
 
 namespace Drupal\views_infinite_scroll\Plugin\views\pager;
 

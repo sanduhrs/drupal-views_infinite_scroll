@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\views_infinite_scroll\EventSubscriber\AjaxResponseSubscriber.
- */
-
 namespace Drupal\views_infinite_scroll\EventSubscriber;
 
 use Drupal\views\Ajax\ViewAjaxResponse;
@@ -16,7 +11,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * Response subscriber to handle AJAX responses.
  */
 class AjaxResponseSubscriber implements EventSubscriberInterface {
-
 
   /**
    * Alter the views AJAX response commands only for the infinite pager.
