@@ -4,3 +4,4 @@ views-infinite-scroll:
     js/infinite-scroll.js : {}
   dependencies:
     - core/jquery
+    - core/drupal
