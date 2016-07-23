@@ -59,7 +59,7 @@ class IntegrationSmokeTest extends WebTestBase {
 
     // Ensure the wrapper div appears on the page.
     $this->drupalGet('test-plugin');
-    $this->assertRaw('views-infinite-scroll-content-wrapper');
+    $this->assertRaw('data-drupal-views-infinite-scroll-content-wrapper');
   }
 
 }
